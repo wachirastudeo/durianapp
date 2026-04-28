@@ -58,7 +58,7 @@ const FinancePage = () => {
   return (
     <div className="fade-in" style={{ paddingBottom: '100px' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800 }}>บัญชีสวน</h1>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 600 }}>บัญชีสวน</h1>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
           <button onClick={() => navigate('/reports')} className="btn btn-ghost" style={{ width: '48px', height: '48px', borderRadius: '12px', border: '2px solid var(--border)', padding: 0 }}><BarChart2 size={24} /></button>
           <button onClick={() => setIsModalOpen(true)} className="btn btn-primary" style={{ width: '48px', height: '48px', borderRadius: '12px', padding: 0 }}><Plus size={28} /></button>
@@ -68,17 +68,17 @@ const FinancePage = () => {
       {/* Summary Card */}
       <section className="card" style={{ background: 'var(--primary)', color: 'white', marginBottom: '2rem', padding: '2rem 1.5rem', borderRadius: '32px', boxShadow: '0 15px 30px -5px rgba(46, 125, 50, 0.4)', border: 'none' }}>
         <div style={{ fontSize: '1.1rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: 600 }}>ยอดเงินคงเหลือ</div>
-        <div style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '2rem', letterSpacing: '-1px' }}>
+        <div style={{ fontSize: '2.8rem', fontWeight: 700, marginBottom: '2rem', letterSpacing: '-1px' }}>
           ฿{balance.toLocaleString('th-TH', { minimumFractionDigits: 0 })}
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <div style={{ flex: 1, background: 'rgba(255,255,255,0.15)', padding: '16px', borderRadius: '20px', backdropFilter: 'blur(10px)' }}>
             <div style={{ fontSize: '0.85rem', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', fontWeight: 700 }}><TrendingUp size={16} /> รายรับ</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: 900 }}>฿{totalIncome.toLocaleString()}</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: 700 }}>฿{totalIncome.toLocaleString()}</div>
           </div>
           <div style={{ flex: 1, background: 'rgba(255,255,255,0.15)', padding: '16px', borderRadius: '20px', backdropFilter: 'blur(10px)' }}>
             <div style={{ fontSize: '0.85rem', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', fontWeight: 700 }}><TrendingDown size={16} /> รายจ่าย</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: 900 }}>฿{totalExpense.toLocaleString()}</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: 700 }}>฿{totalExpense.toLocaleString()}</div>
           </div>
         </div>
       </section>
@@ -97,7 +97,7 @@ const FinancePage = () => {
               flex: 1, padding: '12px 8px', borderRadius: '14px', border: 'none',
               background: tabFilter === tab.id ? 'white' : 'transparent',
               color: tabFilter === tab.id ? tab.color : 'var(--text-muted)',
-              fontWeight: 800, cursor: 'pointer', fontSize: '1rem',
+              fontWeight: 600, cursor: 'pointer', fontSize: '1rem',
               boxShadow: tabFilter === tab.id ? 'var(--shadow-xs)' : 'none',
               transition: 'all 0.2s'
             }}
@@ -112,7 +112,7 @@ const FinancePage = () => {
         {filtered.length === 0 ? (
           <div className="empty-state">
             <Wallet size={56} style={{ opacity: 0.2, marginBottom: '1.5rem', margin: '0 auto' }} />
-            <p style={{ fontSize: '1.2rem', fontWeight: 700 }}>ยังไม่มีรายการบัญชี</p>
+            <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>ยังไม่มีรายการบัญชี</p>
           </div>
         ) : (
           filtered.map(t => (
@@ -121,11 +121,11 @@ const FinancePage = () => {
                 {t.type === 'income' ? <ArrowUpRight size={28} /> : <ArrowDownRight size={28} />}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '4px' }}>{t.title}</div>
+                <div style={{ fontWeight: 600, fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '4px' }}>{t.title}</div>
                 <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>{t.category} • {formatDate(t.date)}</div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontWeight: 900, fontSize: '1.2rem', color: t.type === 'income' ? 'var(--success)' : 'var(--danger)' }}>
+                <div style={{ fontWeight: 700, fontSize: '1.2rem', color: t.type === 'income' ? 'var(--success)' : 'var(--danger)' }}>
                   {t.type === 'income' ? '+' : '-'}฿{t.amount.toLocaleString()}
                 </div>
                 <button onClick={() => handleDelete(t.id)} className="btn-ghost" style={{ padding: '4px', color: 'var(--danger)', marginTop: '4px' }}><Trash2 size={20} /></button>
@@ -140,7 +140,7 @@ const FinancePage = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.6rem', fontWeight: 800 }}>บันทึกรายการใหม่</h2>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: 600 }}>บันทึกรายการใหม่</h2>
               <button onClick={() => setIsModalOpen(false)} className="btn-ghost" style={{ padding: '8px' }}><X size={32}/></button>
             </div>
 
@@ -157,7 +157,7 @@ const FinancePage = () => {
                     flex: 1, padding: '14px 8px', borderRadius: '14px', border: 'none', cursor: 'pointer',
                     background: form.type === type.id ? 'white' : 'transparent',
                     color: form.type === type.id ? type.color : 'var(--text-muted)',
-                    fontWeight: 900, fontSize: '1rem',
+                    fontWeight: 600, fontSize: '1rem',
                     boxShadow: form.type === type.id ? 'var(--shadow-sm)' : 'none',
                     transition: 'all 0.2s'
                   }}
@@ -198,7 +198,7 @@ const FinancePage = () => {
                     value={form.amount} 
                     onChange={e => setForm({ ...form, amount: e.target.value })} 
                     placeholder="0" 
-                    style={{ fontSize: '1.3rem', fontWeight: 900, color: form.type === 'income' ? 'var(--success)' : 'var(--danger)' }}
+                    style={{ fontSize: '1.3rem', fontWeight: 700, color: form.type === 'income' ? 'var(--success)' : 'var(--danger)' }}
                   />
                 </div>
                 <div className="input-group">

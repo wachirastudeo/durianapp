@@ -30,7 +30,7 @@ const ReportPage = () => {
           <button onClick={() => navigate(-1)} className="btn btn-ghost" style={{ padding: '0.5rem', marginLeft: '-0.5rem' }}>
             <ChevronLeft size={24} />
           </button>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 800 }}>รายงานและสถิติ</h1>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 600 }}>รายงานและสถิติ</h1>
         </div>
       </header>
 
@@ -40,7 +40,7 @@ const ReportPage = () => {
           <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: 700 }}>
             รายรับรวมปีนี้ <Info size={14} />
           </div>
-          <div style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--success)' }}>฿125,400</div>
+          <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--success)' }}>฿125,400</div>
           <div style={{ fontSize: '0.8rem', color: 'var(--success)', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: 700 }}>
             <TrendingUp size={14} /> +15% จากปีที่แล้ว
           </div>
@@ -49,7 +49,7 @@ const ReportPage = () => {
           <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: 700 }}>
             รายจ่ายรวมปีนี้ <Info size={14} />
           </div>
-          <div style={{ fontSize: '1.4rem', fontWeight: 900, color: 'var(--danger)' }}>฿42,300</div>
+          <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--danger)' }}>฿42,300</div>
           <div style={{ fontSize: '0.8rem', color: 'var(--success)', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: 700 }}>
             <TrendingDown size={14} /> -5% จากปีที่แล้ว
           </div>
@@ -62,17 +62,17 @@ const ReportPage = () => {
           <div style={{ background: 'var(--success-bg)', padding: '6px', borderRadius: '8px' }}>
             <BarChart3 size={20} color="var(--success)" />
           </div>
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>รายรับ-รายจ่าย (6 เดือนล่าสุด)</h2>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 600 }}>รายรับ-รายจ่าย (6 เดือนล่าสุด)</h2>
         </div>
         <div className="card" style={{ height: '300px', padding: '1.5rem 1rem 1rem 0' }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={financeData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-light)" />
-              <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 700 }} />
-              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 700 }} />
+              <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 500 }} />
+              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 500 }} />
               <RechartsTooltip 
                 cursor={{ fill: 'var(--background)' }}
-                contentStyle={{ borderRadius: '16px', border: '1px solid var(--border-light)', background: 'white', boxShadow: 'var(--shadow-md)', fontWeight: 700 }}
+                contentStyle={{ borderRadius: '16px', border: '1px solid var(--border-light)', background: 'white', boxShadow: 'var(--shadow-md)', fontWeight: 500 }}
               />
               <Bar dataKey="income" name="รายรับ" fill="var(--success)" radius={[6, 6, 0, 0]} />
               <Bar dataKey="expense" name="รายจ่าย" fill="var(--danger)" radius={[6, 6, 0, 0]} />
@@ -87,16 +87,16 @@ const ReportPage = () => {
           <div style={{ background: 'var(--primary-glow)', padding: '6px', borderRadius: '8px' }}>
             <PieChart size={20} color="var(--primary)" />
           </div>
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>แนวโน้มผลผลิต (กก.)</h2>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 600 }}>แนวโน้มผลผลิต (กก.)</h2>
         </div>
         <div className="card" style={{ height: '250px', padding: '1.5rem 1rem 1rem 0' }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={yieldData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-light)" />
-              <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 700 }} />
-              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 700 }} />
+              <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 500 }} />
+              <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'var(--text-muted)', fontWeight: 500 }} />
               <RechartsTooltip 
-                contentStyle={{ borderRadius: '16px', border: '1px solid var(--border-light)', background: 'white', boxShadow: 'var(--shadow-md)', fontWeight: 700 }}
+                contentStyle={{ borderRadius: '16px', border: '1px solid var(--border-light)', background: 'white', boxShadow: 'var(--shadow-md)', fontWeight: 500 }}
               />
               <Line type="monotone" dataKey="weight" name="ผลผลิต (กก.)" stroke="var(--primary)" strokeWidth={4} dot={{ r: 5, fill: 'var(--primary)', strokeWidth: 3, stroke: '#fff' }} activeDot={{ r: 8 }} />
             </LineChart>

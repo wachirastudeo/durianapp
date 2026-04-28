@@ -56,7 +56,7 @@ const TaskPlannerPage = () => {
   return (
     <div className="fade-in" style={{ paddingBottom: '100px' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800 }}>แผนงานสวน</h1>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 600 }}>แผนงานสวน</h1>
         <button onClick={() => { setForm({ title: '', time: '08:00', type: 'watering', date: selectedDateStr }); setIsModalOpen(true); }} className="btn btn-primary" style={{ width: '48px', height: '48px', borderRadius: '50%', padding: 0 }}>
           <Plus size={28} />
         </button>
@@ -90,10 +90,10 @@ const TaskPlannerPage = () => {
                   position: 'relative'
                 }}
               >
-                <div style={{ fontSize: '0.8rem', fontWeight: 800, opacity: isSelected ? 1 : 0.6, marginBottom: '4px' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: 600, opacity: isSelected ? 1 : 0.6, marginBottom: '4px' }}>
                   {format(day, 'EEE', { locale: th })}
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 900 }}>{format(day, 'd')}</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700 }}>{format(day, 'd')}</div>
                 {isToday && !isSelected && <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--primary)', marginTop: '4px' }} />}
                 {hasTasks && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: isSelected ? 'white' : 'var(--accent)', position: 'absolute', top: '4px', right: '4px' }} />}
               </div>
@@ -108,7 +108,7 @@ const TaskPlannerPage = () => {
           <div style={{ background: 'var(--primary-glow)', padding: '8px', borderRadius: '12px' }}>
             <CalendarIcon size={24} color="var(--primary)" />
           </div>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: 800 }}>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: 600 }}>
             {isSameDay(selectedDate, new Date()) ? 'งานวันนี้' : `งานวันที่ ${format(selectedDate, 'd MMM yy', { locale: th })}`}
           </h2>
         </div>
@@ -121,7 +121,7 @@ const TaskPlannerPage = () => {
         {todaysTasks.length === 0 ? (
           <div className="empty-state">
             <Clock size={48} style={{ opacity: 0.2, marginBottom: '1.5rem', margin: '0 auto' }} />
-            <p style={{ fontSize: '1.2rem', fontWeight: 700 }}>ยังไม่มีแผนงานสำหรับวันนี้</p>
+            <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>ยังไม่มีแผนงานสำหรับวันนี้</p>
             <button 
               onClick={() => { setForm({ title: '', time: '08:00', type: 'watering', date: selectedDateStr }); setIsModalOpen(true); }} 
               className="btn btn-primary" 
@@ -152,10 +152,10 @@ const TaskPlannerPage = () => {
               </button>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 800, textDecoration: task.status === 'done' ? 'line-through' : 'none', color: 'var(--text-main)' }}>{task.title}</span>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 700, textDecoration: task.status === 'done' ? 'line-through' : 'none', color: 'var(--text-main)' }}>{task.title}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '0.85rem', padding: '2px 10px', borderRadius: '8px', background: `${getTypeColor(task.type)}18`, color: getTypeColor(task.type), fontWeight: 800 }}>{getTypeLabel(task.type)}</span>
+                  <span style={{ fontSize: '0.85rem', padding: '2px 10px', borderRadius: '8px', background: `${getTypeColor(task.type)}18`, color: getTypeColor(task.type), fontWeight: 600 }}>{getTypeLabel(task.type)}</span>
                   <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700 }}>
                     <Clock size={16} /> {task.time} น.
                   </div>
@@ -172,7 +172,7 @@ const TaskPlannerPage = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>เพิ่มแผนงานใหม่</h2>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 600 }}>เพิ่มแผนงานใหม่</h2>
               <button onClick={() => setIsModalOpen(false)} className="btn-ghost" style={{ padding: '8px' }}><X size={28} /></button>
             </div>
             <form onSubmit={addTask}>

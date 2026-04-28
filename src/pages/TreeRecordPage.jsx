@@ -90,7 +90,7 @@ const TimelineEntry = ({ entry, onUpdate, onDelete }) => {
       <div style={{ flex: 1, background: 'var(--background)', borderRadius: '12px', padding: '0.75rem 1rem', border: `1px solid ${info.color}44` }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '1.1rem', color: info.color }}>{info.label}</div>
+            <div style={{ fontWeight: 600, fontSize: '1.1rem', color: info.color }}>{info.label}</div>
             <div style={{ fontSize: '0.9rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px', fontWeight: 600 }}>
               <Calendar size={13} /> {entry.date}
             </div>
@@ -165,30 +165,30 @@ const BatchCard = ({ batch, variety, customDays, onUpdate, onDelete, defaultOpen
                 value={tempName} 
                 onChange={e => setTempName(e.target.value)} 
                 autoFocus
-                style={{ padding: '6px 10px', fontSize: '1.2rem', fontWeight: 800, borderRadius: '10px', border: '2px solid var(--primary)' }}
+                style={{ padding: '6px 10px', fontSize: '1.2rem', fontWeight: 600, borderRadius: '10px', border: '2px solid var(--primary)' }}
               />
               <button onClick={() => { onUpdate(batch.id, { name: tempName }); setIsEditingName(false); }} className="btn btn-primary" style={{ padding: '8px' }}><Check size={18}/></button>
               <button onClick={() => { setTempName(batch.name); setIsEditingName(false); }} className="btn-ghost" style={{ padding: '8px' }}><X size={18}/></button>
             </div>
           ) : (
-            <div style={{ fontWeight: 800, fontSize: '1.2rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ fontWeight: 600, fontSize: '1.2rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
               {batch.name}
               <button onClick={(e) => { e.stopPropagation(); setIsEditingName(true); }} className="btn-ghost" style={{ padding: '4px', opacity: 0.5 }}><Edit2 size={16} /></button>
             </div>
           )}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.85rem', padding: '4px 12px', borderRadius: '10px', background: currentStageInfo.color + '20', color: currentStageInfo.color, fontWeight: 800 }}>
+            <span style={{ fontSize: '0.85rem', padding: '4px 12px', borderRadius: '10px', background: currentStageInfo.color + '20', color: currentStageInfo.color, fontWeight: 600 }}>
               {currentStageInfo.label}
             </span>
-            <span style={{ fontSize: '0.9rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.9rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 500 }}>
               <Calendar size={13} /> {batch.date}
             </span>
             {batch.fruits > 0 && (
-              <span style={{ fontSize: '1rem', color: 'var(--primary)', fontWeight: 800 }}>🟢 {batch.fruits} ลูก</span>
+              <span style={{ fontSize: '1rem', color: 'var(--primary)', fontWeight: 500 }}>🟢 {batch.fruits} ลูก</span>
             )}
           </div>
           {harvestInfo && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', color: '#b45309', fontSize: '1rem', fontWeight: 800 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', color: '#b45309', fontSize: '1rem', fontWeight: 500 }}>
               <AlertCircle size={14} /> เก็บเกี่ยว: {new Date(harvestInfo.date).toLocaleDateString('th-TH')}
             </div>
           )}
@@ -209,7 +209,7 @@ const BatchCard = ({ batch, variety, customDays, onUpdate, onDelete, defaultOpen
               <div style={{ background: '#fbbf24', padding: '8px', borderRadius: '50%', color: 'white' }}><Calendar size={20} /></div>
               <div>
                 <div style={{ fontSize: '0.85rem', color: '#92400e', fontWeight: 700 }}>พยากรณ์วันเก็บเกี่ยว ({harvestInfo.days} วันหลังดอกบาน)</div>
-                <div style={{ fontSize: '1.2rem', color: '#b45309', fontWeight: 900 }}>{new Date(harvestInfo.date).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+                <div style={{ fontSize: '1.2rem', color: '#b45309', fontWeight: 700 }}>{new Date(harvestInfo.date).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
               </div>
             </div>
           )}
@@ -217,7 +217,7 @@ const BatchCard = ({ batch, variety, customDays, onUpdate, onDelete, defaultOpen
           {/* Add stage */}
           {showAddStage ? (
             <div style={{ background: 'var(--primary-glow)', border: '2.5px solid var(--primary)', borderRadius: '16px', padding: '1.25rem', marginBottom: '1.5rem' }}>
-              <div style={{ fontWeight: 800, fontSize: '1rem', marginBottom: '1rem', color: 'var(--primary)' }}>+ เพิ่มระยะใหม่</div>
+              <div style={{ fontWeight: 600, fontSize: '1rem', marginBottom: '1rem', color: 'var(--primary)' }}>+ เพิ่มระยะใหม่</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                 <div className="input-group" style={{ marginBottom: 0 }}>
                   <label style={{ fontSize: '0.85rem' }}>ระยะ</label>
@@ -247,14 +247,14 @@ const BatchCard = ({ batch, variety, customDays, onUpdate, onDelete, defaultOpen
             <button
               onClick={() => setShowAddStage(true)}
               className="btn btn-ghost"
-              style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '16px', borderRadius: '16px', border: '2.5px dashed var(--primary)', background: 'transparent', color: 'var(--primary)', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', marginBottom: '1.5rem', justifyContent: 'center' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '16px', borderRadius: '16px', border: '2.5px dashed var(--primary)', background: 'transparent', color: 'var(--primary)', fontWeight: 600, fontSize: '1.1rem', cursor: 'pointer', marginBottom: '1.5rem', justifyContent: 'center' }}
             >
               <Plus size={20} /> บันทึกระยะถัดไป
             </button>
           )}
 
           {/* Timeline */}
-          <div style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Clock size={18} /> ประวัติระยะทั้งหมด
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingLeft: '6px' }}>
@@ -398,7 +398,7 @@ const TreeRecordPage = () => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
         <button onClick={() => navigate(-1)} className="btn-ghost" style={{ padding: '8px' }}><ArrowLeft size={28} /></button>
         <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 800 }}>ต้น #{treeData.id}</h1>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 600 }}>ต้น #{treeData.id}</h1>
           {plot && <p style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>{plot.name}</p>}
         </div>
       </div>
@@ -427,7 +427,7 @@ const TreeRecordPage = () => {
             ) : (
               <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '5px' }}>
                 <Camera size={36} style={{ opacity: 0.5, marginBottom: '6px' }} />
-                <div style={{ fontSize: '0.85rem', fontWeight: 800 }}>เพิ่มรูป</div>
+                <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>เพิ่มรูป</div>
               </div>
             )}
           </div>
@@ -463,7 +463,7 @@ const TreeRecordPage = () => {
             <select
               value={treeData.variety}
               onChange={e => setTreeData({ ...treeData, variety: e.target.value })}
-              style={{ fontSize: '1.1rem', fontWeight: 800, background: 'var(--background-alt)' }}
+              style={{ fontSize: '1.1rem', fontWeight: 700, background: 'var(--background-alt)' }}
             >
               {VARIETIES.map(v => <option key={v} value={v}>{v}</option>)}
             </select>
@@ -475,7 +475,7 @@ const TreeRecordPage = () => {
               <select
                 value={treeData.status}
                 onChange={e => setTreeData({ ...treeData, status: e.target.value })}
-                style={{ fontSize: '0.95rem', fontWeight: 800, background: 'var(--background-alt)' }}
+                style={{ fontSize: '0.95rem', fontWeight: 700, background: 'var(--background-alt)' }}
               >
                 <option value="ปกติ">ปกติ</option>
                 <option value="ต้องการน้ำ">ขาดน้ำ</option>
@@ -491,7 +491,7 @@ const TreeRecordPage = () => {
                   type="number" 
                   value={treeData.age} 
                   onChange={e => setTreeData({ ...treeData, age: e.target.value })} 
-                  style={{ width: '100%', fontSize: '1.1rem', fontWeight: 900, textAlign: 'center', background: 'var(--background-alt)' }}
+                  style={{ width: '100%', fontSize: '1.1rem', fontWeight: 700, textAlign: 'center', background: 'var(--background-alt)' }}
                 />
                 <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-secondary)' }}>ปี</span>
               </div>
@@ -503,7 +503,7 @@ const TreeRecordPage = () => {
                   type="number" 
                   value={treeData.fruits} 
                   onChange={e => setTreeData({ ...treeData, fruits: e.target.value })} 
-                  style={{ width: '100%', fontSize: '1.1rem', fontWeight: 900, textAlign: 'center', background: 'var(--background-alt)' }}
+                  style={{ width: '100%', fontSize: '1.1rem', fontWeight: 700, textAlign: 'center', background: 'var(--background-alt)' }}
                 />
                 <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-secondary)' }}>ลูก</span>
               </div>
@@ -514,7 +514,7 @@ const TreeRecordPage = () => {
 
       {/* Batch list */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>รุ่นดอก/ผล ({treeData.batches.length})</h2>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 600 }}>รุ่นดอก/ผล ({treeData.batches.length})</h2>
         <button onClick={addNewBatch} className="btn btn-primary" style={{ padding: '10px 20px', borderRadius: '14px', fontSize: '1rem' }}>
           <Plus size={20} /> เพิ่มรุ่น
         </button>
@@ -535,7 +535,7 @@ const TreeRecordPage = () => {
         {treeData.batches.length === 0 && (
           <div className="empty-state">
             <QrCode size={56} style={{ opacity: 0.15, marginBottom: '1.5rem' }} />
-            <p style={{ fontWeight: 800, fontSize: '1.2rem' }}>ยังไม่มีข้อมูลรุ่นดอก</p>
+            <p style={{ fontWeight: 700, fontSize: '1.2rem' }}>ยังไม่มีข้อมูลรุ่นดอก</p>
             <p style={{ fontSize: '1rem', marginTop: '6px' }}>กด "เพิ่มรุ่น" เพื่อเริ่มบันทึกพัฒนาการ</p>
           </div>
         )}
@@ -543,7 +543,7 @@ const TreeRecordPage = () => {
 
       {/* Success Toast */}
       {isSaved && (
-        <div style={{ position: 'fixed', bottom: '10rem', left: '50%', transform: 'translateX(-50%)', background: 'var(--success)', color: 'white', padding: '12px 28px', borderRadius: '40px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '10px', zIndex: 2000, boxShadow: 'var(--shadow-lg)' }} className="fade-in">
+        <div style={{ position: 'fixed', bottom: '10rem', left: '50%', transform: 'translateX(-50%)', background: 'var(--success)', color: 'white', padding: '12px 28px', borderRadius: '40px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px', zIndex: 2000, boxShadow: 'var(--shadow-lg)' }} className="fade-in">
           <Check size={22} /> บันทึกสำเร็จ
         </div>
       )}
@@ -558,7 +558,7 @@ const TreeRecordPage = () => {
             borderRadius: '50px',
             boxShadow: 'var(--shadow-primary)',
             fontSize: '1.3rem',
-            fontWeight: 800,
+            fontWeight: 600,
             gap: '12px',
             background: isSaved ? 'var(--primary-dark)' : 'var(--primary)',
             transform: isSaved ? 'scale(0.95)' : 'scale(1)',
@@ -574,13 +574,13 @@ const TreeRecordPage = () => {
         <div className="modal-overlay">
           <div className="modal-content" style={{ textAlign: 'center' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800 }}>QR Code ประจำต้น</h2>
+              <h2 style={{ fontSize: '1.3rem', fontWeight: 600 }}>QR Code ประจำต้น</h2>
               <button onClick={() => setShowFullQR(false)} className="btn-ghost" style={{ padding: '8px' }}><X size={32}/></button>
             </div>
             
             <div className="card" style={{ padding: '2rem', display: 'inline-block', marginBottom: '2rem', border: 'none', boxShadow: 'var(--shadow-md)' }}>
               <QRCodeCanvas id="tree-qr" value={window.location.origin + '/tree/' + treeData.id} size={250} level="H" includeMargin={true} />
-              <div style={{ marginTop: '1.25rem', fontWeight: 900, fontSize: '1.6rem', color: 'var(--primary)' }}>#{treeData.id}</div>
+              <div style={{ marginTop: '1.25rem', fontWeight: 700, fontSize: '1.6rem', color: 'var(--primary)' }}>#{treeData.id}</div>
               <div style={{ color: 'var(--text-main)', fontSize: '1.2rem', fontWeight: 700 }}>{treeData.variety}</div>
             </div>
             
