@@ -1,0 +1,22 @@
+# Project Tasks: Durian Orchard Management Web App
+
+- [ ] **Phase 1: Design System & Infrastructure**
+    - [ ] Initialize CSS variables and global styles in `index.css`
+    - [ ] Set up layout components (Sidebar, Navbar, Main Content Area)
+    - [ ] Implement responsive navigation for mobile and desktop
+- [ ] **Phase 2: Dashboard & Weather Integration**
+    - [ ] Create `Dashboard` component
+    - [ ] Implement Weather widget with mock data
+    - [ ] Add summary cards for key metrics
+- [ ] **Phase 3: Plot & Tree Management**
+    - [ ] Build `PlotManager` for orchard layout
+    - [ ] Create `TreeTracker` for individual tree details
+- [ ] **Phase 4: Activity & Task Management**
+    - [ ] Implement `ActivityLog` forms (Fertilizing, Spraying, etc.)
+    - [ ] Build `TaskPlanner` for scheduling
+- [ ] **Phase 5: Financial Tracking**
+    - [ ] Create `FinanceModule` for income and expenses
+    - [ ] Integrate simple charts for financial overview
+- [ ] **Phase 6: Polish & UI/UX Enhancement**
+    - [ ] Add micro-animations and transitions
+    - [ ] Finalize responsive adjustments
