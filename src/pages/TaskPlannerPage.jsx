@@ -55,7 +55,7 @@ const TaskPlannerPage = () => {
 
   return (
     <div className="fade-in" style={{ paddingBottom: '100px' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800 }}>แผนงานสวน</h1>
         <button onClick={() => { setForm({ title: '', time: '08:00', type: 'watering', date: selectedDateStr }); setIsModalOpen(true); }} className="btn btn-primary" style={{ width: '48px', height: '48px', borderRadius: '50%', padding: 0 }}>
           <Plus size={28} />
@@ -90,10 +90,10 @@ const TaskPlannerPage = () => {
                   position: 'relative'
                 }}
               >
-                <div style={{ fontSize: '0.85rem', fontWeight: 800, opacity: isSelected ? 1 : 0.6, marginBottom: '4px' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, opacity: isSelected ? 1 : 0.6, marginBottom: '4px' }}>
                   {format(day, 'EEE', { locale: th })}
                 </div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 900 }}>{format(day, 'd')}</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 900 }}>{format(day, 'd')}</div>
                 {isToday && !isSelected && <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--primary)', marginTop: '4px' }} />}
                 {hasTasks && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: isSelected ? 'white' : 'var(--accent)', position: 'absolute', top: '4px', right: '4px' }} />}
               </div>
@@ -105,27 +105,27 @@ const TaskPlannerPage = () => {
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ background: 'rgba(76, 175, 80, 0.1)', padding: '8px', borderRadius: '12px' }}>
+          <div style={{ background: 'var(--primary-glow)', padding: '8px', borderRadius: '12px' }}>
             <CalendarIcon size={24} color="var(--primary)" />
           </div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: 800 }}>
             {isSameDay(selectedDate, new Date()) ? 'งานวันนี้' : `งานวันที่ ${format(selectedDate, 'd MMM yy', { locale: th })}`}
           </h2>
         </div>
         {todaysTasks.length > 0 && (
-          <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 700 }}>{doneCount}/{todaysTasks.length} สำเร็จ</span>
+          <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 700 }}>{doneCount}/{todaysTasks.length} สำเร็จ</span>
         )}
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         {todaysTasks.length === 0 ? (
-          <div className="card" style={{ textAlign: 'center', padding: '4rem 1.5rem', color: 'var(--text-muted)', border: '2px dashed var(--border)' }}>
+          <div className="empty-state">
             <Clock size={48} style={{ opacity: 0.2, marginBottom: '1.5rem', margin: '0 auto' }} />
             <p style={{ fontSize: '1.2rem', fontWeight: 700 }}>ยังไม่มีแผนงานสำหรับวันนี้</p>
             <button 
               onClick={() => { setForm({ title: '', time: '08:00', type: 'watering', date: selectedDateStr }); setIsModalOpen(true); }} 
               className="btn btn-primary" 
-              style={{ marginTop: '1.5rem', padding: '1rem 2rem', borderRadius: '16px' }}
+              style={{ marginTop: '1.5rem', padding: '0.8rem 1.5rem', borderRadius: '16px' }}
             >
               <Plus size={20} /><span>เริ่มวางแผนงาน</span>
             </button>
@@ -140,23 +140,23 @@ const TaskPlannerPage = () => {
                 alignItems: 'center', 
                 gap: '1.25rem', 
                 opacity: task.status === 'done' ? 0.6 : 1,
-                border: task.status === 'done' ? '2px solid var(--border-light)' : '2px solid var(--border)',
+                borderLeft: `6px solid ${getTypeColor(task.type)}`,
                 padding: '1.25rem'
               }}
             >
               <button 
                 onClick={() => toggleTask(task.id)} 
-                style={{ cursor: 'pointer', color: task.status === 'done' ? 'var(--primary)' : 'var(--text-muted)', background: 'none', border: 'none', padding: 0, flexShrink: 0 }}
+                style={{ cursor: 'pointer', color: task.status === 'done' ? 'var(--primary)' : 'var(--border)', background: 'none', border: 'none', padding: 0, flexShrink: 0 }}
               >
                 {task.status === 'done' ? <CheckCircle2 size={32} /> : <Circle size={32} />}
               </button>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '1.3rem', fontWeight: 800, textDecoration: task.status === 'done' ? 'line-through' : 'none', color: 'var(--text-main)' }}>{task.title}</span>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 800, textDecoration: task.status === 'done' ? 'line-through' : 'none', color: 'var(--text-main)' }}>{task.title}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '0.9rem', padding: '2px 10px', borderRadius: '8px', background: `${getTypeColor(task.type)}18`, color: getTypeColor(task.type), fontWeight: 800 }}>{getTypeLabel(task.type)}</span>
-                  <div style={{ fontSize: '1rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700 }}>
+                  <span style={{ fontSize: '0.85rem', padding: '2px 10px', borderRadius: '8px', background: `${getTypeColor(task.type)}18`, color: getTypeColor(task.type), fontWeight: 800 }}>{getTypeLabel(task.type)}</span>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700 }}>
                     <Clock size={16} /> {task.time} น.
                   </div>
                 </div>
@@ -170,54 +170,50 @@ const TaskPlannerPage = () => {
       {/* Add Task Modal */}
       {isModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ borderRadius: '32px' }}>
+          <div className="modal-content">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>เพิ่มแผนงานใหม่</h2>
               <button onClick={() => setIsModalOpen(false)} className="btn-ghost" style={{ padding: '8px' }}><X size={28} /></button>
             </div>
             <form onSubmit={addTask}>
               <div className="input-group">
-                <label style={{ fontSize: '1rem', fontWeight: 800 }}>ชื่องาน *</label>
+                <label>ชื่องาน *</label>
                 <input 
                   required 
                   type="text" 
                   value={form.title} 
                   onChange={e => setForm({ ...form, title: e.target.value })} 
                   placeholder="เช่น รดน้ำแปลง A, ใส่ปุ๋ย..." 
-                  style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                 />
               </div>
               <div className="input-group">
-                <label style={{ fontSize: '1rem', fontWeight: 800 }}>ประเภทงาน</label>
+                <label>ประเภทงาน</label>
                 <select 
                   value={form.type} 
                   onChange={e => setForm({ ...form, type: e.target.value })}
-                  style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                 >
                   {TASK_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div className="input-group">
-                  <label style={{ fontSize: '1rem', fontWeight: 800 }}>วันที่</label>
+                  <label>วันที่</label>
                   <input 
                     type="date" 
                     value={form.date} 
                     onChange={e => setForm({ ...form, date: e.target.value })} 
-                    style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                   />
                 </div>
                 <div className="input-group">
-                  <label style={{ fontSize: '1rem', fontWeight: 800 }}>เวลา</label>
+                  <label>เวลา</label>
                   <input 
                     type="time" 
                     value={form.time} 
                     onChange={e => setForm({ ...form, time: e.target.value })} 
-                    style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem', padding: '1.25rem', fontSize: '1.2rem', borderRadius: '16px' }}>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem', padding: '1rem', fontSize: '1.2rem' }}>
                 <Check size={24} /><span>บันทึกแผนงาน</span>
               </button>
             </form>

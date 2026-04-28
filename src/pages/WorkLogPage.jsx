@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Filter, Droplets, FlaskConical, Scissors, Shovel, X, Check, Calendar, MapPin } from 'lucide-react';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
@@ -58,22 +58,23 @@ const WorkLogPage = () => {
   return (
     <div className="fade-in">
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800 }}>บันทึกงานสวน</h1>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 600 }}>บันทึกงานสวน</h1>
         <button onClick={() => setIsModalOpen(true)} className="btn btn-primary" style={{ padding: '0.75rem 1.25rem', borderRadius: '12px' }}>
           <Plus size={24} /><span>บันทึกงาน</span>
         </button>
       </header>
 
-      {/* Filters - Horizontal Scrollable with bigger touch area */}
+      {/* Filters - Horizontal Scrollable */}
       <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '1.25rem', marginBottom: '0.5rem', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <button
           onClick={() => setActiveFilter('all')}
+          className="btn"
           style={{
             whiteSpace: 'nowrap', padding: '10px 20px', borderRadius: '12px',
-            border: activeFilter === 'all' ? 'none' : '2px solid var(--border)',
             background: activeFilter === 'all' ? 'var(--primary)' : 'white',
             color: activeFilter === 'all' ? 'white' : 'var(--text-main)',
-            fontSize: '1.1rem', fontWeight: 700, cursor: 'pointer',
+            border: activeFilter === 'all' ? 'none' : '2px solid var(--border)',
+            fontWeight: 500,
           }}
         >
           ทั้งหมด
@@ -82,12 +83,13 @@ const WorkLogPage = () => {
           <button
             key={a.value}
             onClick={() => setActiveFilter(a.value)}
+            className="btn"
             style={{
               whiteSpace: 'nowrap', padding: '10px 20px', borderRadius: '12px',
-              border: activeFilter === a.value ? 'none' : '2px solid var(--border)',
               background: activeFilter === a.value ? a.color : 'white',
               color: activeFilter === a.value ? 'white' : 'var(--text-main)',
-              fontSize: '1.1rem', fontWeight: 700, cursor: 'pointer',
+              border: activeFilter === a.value ? 'none' : '2px solid var(--border)',
+              fontWeight: 500,
             }}
           >
             {a.label}
@@ -98,16 +100,16 @@ const WorkLogPage = () => {
       {/* Log List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         {filtered.length === 0 ? (
-          <div className="card" style={{ textAlign: 'center', padding: '4rem 1.5rem', color: 'var(--text-muted)', border: '2px dashed var(--border)' }}>
+          <div className="empty-state">
             <Filter size={48} style={{ opacity: 0.2, marginBottom: '1.5rem', margin: '0 auto' }} />
-            <p style={{ fontSize: '1.2rem', fontWeight: 700 }}>ยังไม่มีรายการบันทึก</p>
+            <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>ยังไม่มีรายการบันทึก</p>
             <p style={{ fontSize: '1rem', marginTop: '0.5rem' }}>กดปุ่มสีเขียวด้านบนเพื่อเพิ่มงานชิ้นแรก!</p>
           </div>
         ) : (
           filtered.map(log => {
             const typeInfo = ACTIVITY_TYPES.find(a => a.value === log.type);
             return (
-              <div key={log.id} className="card" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', border: '2px solid var(--border)' }}>
+              <div key={log.id} className="card" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', borderLeft: `6px solid ${typeInfo?.color || 'var(--primary)'}` }}>
                 <div style={{ 
                   width: '56px', height: '56px', borderRadius: '16px', 
                   background: `${typeInfo?.color || 'var(--primary)'}18`, 
@@ -119,13 +121,13 @@ const WorkLogPage = () => {
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                     <div>
-                      <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-main)' }}>{log.activity}</h3>
+                      <h3 style={{ fontSize: '1.3rem', fontWeight: 600, color: 'var(--text-main)' }}>{log.activity}</h3>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '1rem', color: 'var(--text-main)', fontWeight: 600, marginTop: '2px' }}>
                         <MapPin size={16} color="var(--primary)" /> {log.plot}
                       </div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <Calendar size={14} /> {format(new Date(log.date), 'd MMM yy', { locale: th })}
                       </div>
                     </div>
@@ -134,12 +136,12 @@ const WorkLogPage = () => {
                   {log.notes && (
                     <div style={{ 
                       fontSize: '1rem', 
-                      background: '#f8fafc', 
+                      background: 'var(--background)', 
                       padding: '12px', 
                       borderRadius: '12px', 
                       color: 'var(--text-main)',
                       fontWeight: 500,
-                      border: '1px solid #e2e8f0',
+                      border: '1px solid var(--border-light)',
                       marginTop: '0.5rem'
                     }}>
                       {log.notes}
@@ -158,53 +160,49 @@ const WorkLogPage = () => {
       {/* Add Modal */}
       {isModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ borderRadius: '32px' }}>
+          <div className="modal-content">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>บันทึกงานสวนใหม่</h2>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 600 }}>บันทึกงานสวนใหม่</h2>
               <button onClick={() => setIsModalOpen(false)} className="btn-ghost" style={{ padding: '8px' }}><X size={28} /></button>
             </div>
             <form onSubmit={handleAdd}>
               <div className="input-group">
-                <label style={{ fontSize: '1rem', fontWeight: 800 }}>ประเภทงาน *</label>
+                <label>ประเภทงาน *</label>
                 <select 
                   value={form.type} 
                   onChange={e => setForm({ ...form, type: e.target.value })}
-                  style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                 >
                   {ACTIVITY_TYPES.map(a => <option key={a.value} value={a.value}>{a.label}</option>)}
                 </select>
               </div>
               <div className="input-group">
-                <label style={{ fontSize: '1rem', fontWeight: 800 }}>แปลงที่ทำงาน *</label>
+                <label>แปลงที่ทำงาน *</label>
                 <input 
                   required 
                   type="text" 
                   value={form.plot} 
                   onChange={e => setForm({ ...form, plot: e.target.value })} 
                   placeholder="เช่น แปลงหน้าบ้าน" 
-                  style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                 />
               </div>
               <div className="input-group">
-                <label style={{ fontSize: '1rem', fontWeight: 800 }}>วันที่</label>
+                <label>วันที่</label>
                 <input 
                   type="date" 
                   value={form.date} 
                   onChange={e => setForm({ ...form, date: e.target.value })} 
-                  style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700 }}
                 />
               </div>
               <div className="input-group">
-                <label style={{ fontSize: '1rem', fontWeight: 800 }}>หมายเหตุ / รายละเอียด</label>
+                <label>หมายเหตุ / รายละเอียด</label>
                 <textarea
                   value={form.notes}
                   onChange={e => setForm({ ...form, notes: e.target.value })}
                   placeholder="ระบุข้อมูลเพิ่มเติม..."
                   rows={3}
-                  style={{ fontSize: '1.1rem', padding: '12px', borderRadius: '12px', fontWeight: 700, resize: 'none' }}
                 />
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem', padding: '1.25rem', fontSize: '1.2rem', borderRadius: '16px' }}>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem', padding: '1rem', fontSize: '1.2rem' }}>
                 <Check size={24} /><span>บันทึกข้อมูลงาน</span>
               </button>
             </form>
