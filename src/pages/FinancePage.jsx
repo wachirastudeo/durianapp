@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, TrendingUp, TrendingDown, Wallet, ArrowUpRight, ArrowDownRight, BarChart2, X, Check, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../hooks/useStorage';

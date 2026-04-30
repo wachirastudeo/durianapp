@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Filter, Droplets, FlaskConical, Scissors, Shovel, X, Check, Calendar, MapPin } from 'lucide-react';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';

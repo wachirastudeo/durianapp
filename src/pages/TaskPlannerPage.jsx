@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, CheckCircle2, Circle, Clock, ChevronLeft, ChevronRight, Plus, X, Check, Trash2 } from 'lucide-react';
 import { format, addDays, subDays, isSameDay } from 'date-fns';
 import { th } from 'date-fns/locale';

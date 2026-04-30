@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Search, Map, TreePine, ChevronRight, QrCode, X, Trash2, Edit2, Check, LayoutGrid, CheckSquare, Square, MousePointer2, Calendar, Camera, Printer, Edit } from 'lucide-react';
+import { Plus, Search, Map, TreePine, ChevronRight, QrCode, X, Trash2, Edit, Check, LayoutGrid, CheckSquare, Square, MousePointer2, Calendar, Printer } from 'lucide-react';
 import { useLocalStorage } from '../hooks/useStorage';
-import { Html5QrcodeScanner } from 'html5-qrcode';
 import { QRCodeCanvas } from 'qrcode.react';
 
 const INITIAL_PLOTS = [
@@ -269,14 +268,14 @@ const OrchardPage = () => {
     <div className="fade-in" style={{ paddingBottom: '100px' }}>
       {!selectedPlot ? (
         <>
-          <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h1 style={{ fontSize: '1.7rem', fontWeight: 600 }}>ผังแปลงทุเรียน</h1>
-            <div style={{ display: 'flex', gap: '8px' }}>
-               <button onClick={() => setIsScannerOpen(true)} className="btn btn-ghost" style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'white', border: '2px solid var(--border)', padding: 0 }}>
-                <QrCode size={24} color="var(--primary)" />
+          <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingTop: '0.5rem' }}>
+            <h1 style={{ fontSize: '1.8rem', fontWeight: 800, background: 'linear-gradient(135deg, var(--primary), var(--accent))', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ผังแปลงทุเรียน</h1>
+            <div style={{ display: 'flex', gap: '10px' }}>
+               <button onClick={() => setIsScannerOpen(true)} className="btn btn-ghost" style={{ width: '44px', height: '44px', borderRadius: 'var(--radius)', background: 'white', border: '2px solid var(--border)', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all var(--duration)', cursor: 'pointer' }} onMouseEnter={(e) => {e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)';}} onMouseLeave={(e) => {e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none';}}>
+                <QrCode size={22} color="var(--primary)" />
               </button>
-              <button onClick={openAddPlot} className="btn btn-primary" style={{ padding: '0.75rem 1rem', borderRadius: '14px' }}>
-                <Plus size={24} /><span>เพิ่มแปลง</span>
+              <button onClick={openAddPlot} className="btn btn-primary" style={{ padding: '0.75rem 1.25rem', borderRadius: 'var(--radius)', background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))', color: 'white', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: 'pointer', boxShadow: 'var(--shadow-primary)' }}>
+                <Plus size={20} /><span>เพิ่มแปลง</span>
               </button>
             </div>
           </header>
@@ -292,37 +291,86 @@ const OrchardPage = () => {
               { label: 'ทุเรียน', value: trees.length, unit: 'ต้น', color: 'var(--accent)' },
               { label: 'ปกติ', value: trees.filter(t => t.status === 'ปกติ' || t.status === 'ติดผล').length, unit: 'ต้น', color: 'var(--success)' },
             ].map((s, i) => (
-              <div key={i} className="card" style={{ padding: '1rem', textAlign: 'center', borderBottom: `4px solid ${s.color}` }}>
-                <div style={{ fontSize: '1.8rem', fontWeight: 700, color: s.color }}>{s.value}</div>
-                <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 600 }}>{s.label}</div>
+              <div key={i} className="card" style={{ 
+                padding: '1rem', 
+                textAlign: 'center', 
+                borderBottom: `4px solid ${s.color}`,
+                background: s.color === 'var(--primary)' ? 'rgba(26, 138, 62, 0.04)' : s.color === 'var(--accent)' ? 'rgba(240, 165, 0, 0.04)' : 'rgba(34, 165, 91, 0.04)',
+                transition: 'all var(--duration)'
+              }}
+              onMouseEnter={(e) => {e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)';}}
+              onMouseLeave={(e) => {e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)';}}
+              >
+                <div style={{ fontSize: '2rem', fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.value}</div>
+                <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 600, marginTop: '0.5rem' }}>{s.label}</div>
               </div>
             ))}
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {filteredPlots.map(plot => (
-              <div key={plot.id} className="card" onClick={() => setSelectedPlot(plot)} style={{ cursor: 'pointer', borderLeft: '6px solid var(--primary)' }}>
+              <div key={plot.id} className="card" style={{ 
+                cursor: 'pointer', 
+                borderLeft: '6px solid var(--primary)',
+                background: 'linear-gradient(135deg, rgba(26, 138, 62, 0.04) 0%, transparent 100%)',
+                transition: 'all var(--duration) var(--ease-out)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between'
+              }}
+              onClick={() => setSelectedPlot(plot)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+              }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.25rem' }}>{plot.name}</h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 700 }}>
-                      <Map size={18} /><span>{plot.area}</span>
+                    <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-main)' }}>{plot.name}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                      <Map size={16} /><span>{plot.area}</span>
                     </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ background: 'var(--primary-glow)', padding: '6px 12px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 600, color: 'var(--primary)' }}>{plot.variety}</span>
-                    <button onClick={e => openEditPlot(e, plot)} className="btn-ghost" style={{ padding: '8px' }}><Edit size={20} /></button>
-                    <button onClick={e => deletePlot(e, plot.id)} className="btn-ghost" style={{ padding: '8px', color: 'var(--danger)' }}><Trash2 size={20} /></button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ background: 'linear-gradient(135deg, var(--primary), rgba(26, 138, 62, 0.6))', padding: '6px 12px', borderRadius: 'var(--radius)', fontSize: '0.85rem', fontWeight: 600, color: 'white' }}>{plot.variety}</span>
+                    <button onClick={e => openEditPlot(e, plot)} className="btn-ghost" style={{ padding: '6px', borderRadius: 'var(--radius)', background: 'rgba(0,0,0,0.03)', border: 'none', cursor: 'pointer', transition: 'all var(--duration)' }} onMouseEnter={(e) => e.target.style.background = 'rgba(0,0,0,0.08)'} onMouseLeave={(e) => e.target.style.background = 'rgba(0,0,0,0.03)'}><Edit size={18} color="var(--text-muted)" /></button>
+                    <button onClick={e => deletePlot(e, plot.id)} className="btn-ghost" style={{ padding: '6px', borderRadius: 'var(--radius)', background: 'rgba(229, 62, 62, 0.08)', border: 'none', cursor: 'pointer', transition: 'all var(--duration)' }} onMouseEnter={(e) => e.target.style.background = 'rgba(229, 62, 62, 0.15)'} onMouseLeave={(e) => e.target.style.background = 'rgba(229, 62, 62, 0.08)'}><Trash2 size={18} color="var(--danger)" /></button>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '1.5rem', paddingTop: '1rem', borderTop: '1.5px solid var(--border-light)' }}>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', paddingTop: '1rem', borderTop: '1.5px solid var(--border-light)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <TreePine size={24} color="var(--primary)" />
-                    <span style={{ fontWeight: 700, fontSize: '1.2rem' }}>{trees.filter(t => t.plotId === plot.id).length}</span>
-                    <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 700 }}>ต้น</span>
+                    <div style={{ width: '36px', height: '36px', borderRadius: 'var(--radius)', background: 'linear-gradient(135deg, var(--primary), rgba(26, 138, 62, 0.6))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                      <TreePine size={18} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--text-main)' }}>{trees.filter(t => t.plotId === plot.id).length}</div>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>ต้น</div>
+                    </div>
                   </div>
-                  <button className="btn-ghost" style={{ marginLeft: 'auto', fontSize: '1.1rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
-                    เปิดดู <ChevronRight size={22} />
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setSelectedPlot(plot); }}
+                    aria-label={`เปิดดู ${plot.name}`}
+                    style={{
+                      marginLeft: 'auto',
+                      fontSize: '0.95rem',
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontWeight: 600,
+                      background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))',
+                      border: 'none',
+                      padding: '0.6rem 1rem',
+                      borderRadius: 'var(--radius)',
+                      cursor: 'pointer',
+                      transition: 'all var(--duration)',
+                      boxShadow: 'var(--shadow-primary)'
+                    }}
+                  >
+                    เปิดดู <ChevronRight size={18} />
                   </button>
                 </div>
               </div>
@@ -349,8 +397,8 @@ const OrchardPage = () => {
                     <label>พื้นที่</label>
                     <input type="text" value={plotForm.area} onChange={e => setPlotForm({ ...plotForm, area: e.target.value })} placeholder="เช่น 1 ไร่" />
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem', padding: '1rem', fontSize: '1.2rem' }}>
-                    <Check size={24} /> {editPlot ? 'บันทึกการแก้ไข' : 'ยืนยันเพิ่มแปลง'}
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem', padding: '0.75rem 1rem', fontSize: '1.1rem', background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))', color: 'white', fontWeight: 700, border: 'none', borderRadius: 'var(--radius)', cursor: 'pointer', boxShadow: 'var(--shadow-primary)' }}>
+                    <Check size={20} /> {editPlot ? 'บันทึกการแก้ไข' : 'ยืนยันเพิ่มแปลง'}
                   </button>
                 </form>
               </div>
@@ -360,12 +408,12 @@ const OrchardPage = () => {
       ) : (
         <>
           <header style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-            <button onClick={() => {setSelectedPlot(null); setIsBulkMode(false);}} className="btn-ghost" style={{ padding: '10px', borderRadius: '14px', background: 'white', border: '2px solid var(--border)' }}>
-              <ChevronRight size={28} style={{ transform: 'rotate(180deg)' }} />
+            <button onClick={() => {setSelectedPlot(null); setIsBulkMode(false);}} className="btn-ghost" style={{ padding: '10px', borderRadius: 'var(--radius)', background: 'white', border: '2px solid var(--border)', cursor: 'pointer', transition: 'all var(--duration)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onMouseEnter={(e) => {e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)';}} onMouseLeave={(e) => {e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none';}}>
+              <ChevronRight size={24} style={{ transform: 'rotate(180deg)' }} color="var(--text-main)" />
             </button>
             <div style={{ flex: 1 }}>
-              <h1 style={{ fontSize: '1.6rem', fontWeight: 700 }}>{selectedPlot.name}</h1>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 700 }}>{plotTrees.length} ต้น</p>
+              <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-main)' }}>{selectedPlot.name}</h1>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 600, marginTop: '0.25rem' }}>{plotTrees.length} ต้น</p>
             </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <button 
@@ -374,19 +422,33 @@ const OrchardPage = () => {
                   setIsBulkModal(true);
                   setIsBulkMode(true);
                 }} 
-                className="btn" 
                 style={{ 
-                  padding: '12px 18px', borderRadius: '18px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.1rem', 
-                  background: 'var(--accent)',
+                  padding: '0.75rem 1rem', 
+                  borderRadius: 'var(--radius)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  fontSize: '0.95rem', 
+                  background: 'linear-gradient(135deg, var(--accent), rgba(240, 165, 0, 0.7))',
                   color: 'black',
-                  fontWeight: 600, boxShadow: '0 8px 20px rgba(255, 179, 0, 0.3)'
+                  fontWeight: 700, 
+                  boxShadow: '0 8px 20px rgba(240, 165, 0, 0.3)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all var(--duration)'
                 }}
+                onMouseEnter={(e) => {e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 28px rgba(240, 165, 0, 0.4)';}}
+                onMouseLeave={(e) => {e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(240, 165, 0, 0.3)';}}
               >
-                <CheckSquare size={24} />
+                <CheckSquare size={20} />
                 <span>จัดการยกแปลง</span>
               </button>
-              <button onClick={() => window.print()} className="btn btn-ghost" style={{ width: '52px', height: '52px', borderRadius: '16px', background: 'white', border: '2px solid var(--border)', padding: 0 }}><Printer size={24} /></button>
-              <button onClick={openAddTree} className="btn btn-primary" style={{ width: '52px', height: '52px', borderRadius: '16px', padding: 0 }}><Plus size={32} /></button>
+              <button onClick={() => window.print()} className="btn btn-ghost" style={{ width: '44px', height: '44px', borderRadius: 'var(--radius)', background: 'white', border: '2px solid var(--border)', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all var(--duration)' }} onMouseEnter={(e) => {e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)';}} onMouseLeave={(e) => {e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none';}}>
+                <Printer size={20} />
+              </button>
+              <button onClick={openAddTree} className="btn btn-primary" style={{ width: '44px', height: '44px', borderRadius: 'var(--radius)', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))', color: 'white', border: 'none', cursor: 'pointer', boxShadow: 'var(--shadow-primary)' }}>
+                <Plus size={24} />
+              </button>
             </div>
           </header>
 
@@ -429,7 +491,7 @@ const OrchardPage = () => {
                   onClick={() => setIsBulkModal(true)} 
                   className="btn" 
                   disabled={selectedTreeIds.length === 0}
-                  style={{ background: white, color: 'var(--primary)', padding: '8px 20px', borderRadius: '12px', fontWeight: 700, opacity: selectedTreeIds.length === 0 ? 0.6 : 1, border: 'none' }}
+                  style={{ background: 'white', color: 'var(--primary)', padding: '8px 20px', borderRadius: '12px', fontWeight: 700, opacity: selectedTreeIds.length === 0 ? 0.6 : 1, border: 'none' }}
                 >
                   บันทึกข้อมูล
                 </button>
@@ -471,9 +533,9 @@ const OrchardPage = () => {
       {isTreeModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.6rem', fontWeight: 700 }}>{editTree ? 'แก้ไขข้อมูลต้น' : 'เพิ่มต้นใหม่'}</h2>
-              <button onClick={() => setIsTreeModal(false)} className="btn-ghost" style={{ padding: '8px' }}><X size={32} /></button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', alignItems: 'center' }}>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-main)' }}>{editTree ? 'แก้ไขข้อมูลต้น' : 'เพิ่มต้นใหม่'}</h2>
+              <button onClick={() => setIsTreeModal(false)} className="btn-ghost" style={{ padding: '8px', borderRadius: 'var(--radius)', background: 'rgba(0,0,0,0.03)', border: 'none', cursor: 'pointer', transition: 'all var(--duration)' }} onMouseEnter={(e) => e.target.style.background = 'rgba(0,0,0,0.08)'} onMouseLeave={(e) => e.target.style.background = 'rgba(0,0,0,0.03)'}><X size={28} color="var(--text-main)" /></button>
             </div>
             <form onSubmit={saveTree}>
               <div className="input-group"><label>รหัสต้นทุเรียน *</label><input required type="text" value={treeForm.id} onChange={e => setTreeForm({ ...treeForm, id: e.target.value })} disabled={!!editTree} /></div>
@@ -481,7 +543,7 @@ const OrchardPage = () => {
               <div className="input-group"><label>อายุต้น (ปี)</label><input type="number" value={treeForm.age} onChange={e => setTreeForm({ ...treeForm, age: e.target.value })} /></div>
               <div className="input-group"><label>สายพันธุ์</label><select value={treeForm.variety} onChange={e => setTreeForm({ ...treeForm, variety: e.target.value })}>{['หมอนทอง', 'ชะนี', 'พวงมณี', 'กระดุม', 'อื่นๆ'].map(v => <option key={v} value={v}>{v}</option>)}</select></div>
               <div className="input-group"><label>สถานะ</label><select value={treeForm.status} onChange={e => setTreeForm({ ...treeForm, status: e.target.value })}>{STATUS_OPTS.map(s => <option key={s} value={s}>{s}</option>)}</select></div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.2rem', marginTop: '1rem' }}><Check size={24}/> ยืนยัน</button>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem 1rem', fontSize: '1.1rem', marginTop: '1.5rem', background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))', color: 'white', fontWeight: 700, border: 'none', borderRadius: 'var(--radius)', cursor: 'pointer', boxShadow: 'var(--shadow-primary)' }}><Check size={20}/> ยืนยัน</button>
             </form>
           </div>
         </div>

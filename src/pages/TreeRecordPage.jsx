@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, QrCode, Save, Trash2, Plus, Calendar, Clock, ChevronDown, ChevronUp, Edit2, Check, X, AlertCircle, Camera, Image as ImageIcon, Download, Share2 } from 'lucide-react';
+import { ArrowLeft, QrCode, Save, Trash2, Plus, Calendar, Clock, ChevronDown, ChevronUp, Edit2, Check, X, AlertCircle, Camera, Download } from 'lucide-react';
 import { useLocalStorage } from '../hooks/useStorage';
 import { QRCodeCanvas } from 'qrcode.react';
 
@@ -301,13 +301,12 @@ const TreeRecordPage = () => {
   const treeIndex = trees.findIndex(t => t.id === id);
   const existingTree = trees[treeIndex];
 
-  const [treeData, setTreeData] = useState({ id: '', variety: 'หมอนทอง', age: '', customDays: 120, status: 'ปกติ', batches: [], image: null });
-
-  useEffect(() => {
+  const [treeData, setTreeData] = useState(() => {
     if (existingTree) {
-      setTreeData({ ...existingTree, batches: existingTree.batches || [], customDays: existingTree.customDays || 120, image: existingTree.image || null, age: existingTree.age || '' });
+      return { ...existingTree, batches: existingTree.batches || [], customDays: existingTree.customDays || 120, image: existingTree.image || null, age: existingTree.age || '' };
     }
-  }, [id]);
+    return { id: '', variety: 'หมอนทอง', age: '', customDays: 120, status: 'ปกติ', batches: [], image: null };
+  });
 
   const handleSave = () => {
     if (treeIndex > -1) {

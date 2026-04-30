@@ -1,12 +1,10 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Map, 
   PenLine, 
   Banknote, 
-  MoreHorizontal,
-  PlusCircle
+  MoreHorizontal
 } from 'lucide-react';
 import HomePage from './pages/HomePage';
 import OrchardPage from './pages/OrchardPage';

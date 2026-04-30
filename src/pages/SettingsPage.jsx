@@ -1,4 +1,3 @@
-import React from 'react';
 import { User, TreePine, Bell, Shield, LogOut, ChevronRight, Download, Upload, Settings } from 'lucide-react';
 
 const SettingsPage = () => {
